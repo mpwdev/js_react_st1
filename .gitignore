@@ -8,3 +8,7 @@ npm-debug.log
 
 # OSX hidden files
 .DS_Store
+
+dist
+dist-ssr
+*.local
