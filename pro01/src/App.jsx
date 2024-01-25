@@ -23,12 +23,22 @@ function Header() {
   );
 }
 
-function CoreConcept(props) {
+// function CoreConcept(props) {
+//   return (
+//     <li>
+//       <img src={props.image} alt={props.title} />
+//       <h3>{props.title}</h3>
+//       <p>{props.description}</p>
+//     </li>
+//   );
+// }
+
+function CoreConcept({ image, title, description }) {
   return (
     <li>
-      <img src={props.image} alt={props.title} />
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
     </li>
   );
 }
@@ -46,7 +56,7 @@ function App() {
               description="The core UI building block."
               image={componentsImg}
             ></CoreConcept> */}
-						 <CoreConcept {...CORE_CONCEPTS[0]}></CoreConcept>
+            <CoreConcept {...CORE_CONCEPTS[0]}></CoreConcept>
             <CoreConcept
               title={CORE_CONCEPTS[1].title}
               description={CORE_CONCEPTS[1].description}
