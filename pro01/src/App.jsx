@@ -4,8 +4,13 @@ import { CORE_CONCEPTS } from './data.js';
 
 import Header from './components/Header/Header.jsx';
 import CoreConcept from './components/CoreConcept.jsx';
+import TabButton from './components/TabButton.jsx';
 
 function App() {
+  function handleSelect() {
+    console.log('btn clicked - app');
+  }
+
   return (
     <div>
       <Header></Header>
@@ -27,6 +32,15 @@ function App() {
             <CoreConcept {...CORE_CONCEPTS[2]}></CoreConcept>
             <CoreConcept {...CORE_CONCEPTS[3]}></CoreConcept>
           </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton onSelect={handleSelect}>Components</TabButton>
+            <TabButton onSelect={handleSelect}>JSX</TabButton>
+            <TabButton onSelect={handleSelect}>Props</TabButton>
+            <TabButton onSelect={handleSelect}>State</TabButton>
+          </menu>
         </section>
       </main>
     </div>
