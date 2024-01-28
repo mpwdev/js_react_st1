@@ -1,5 +1,7 @@
 // import reactImg from './assets/react-core-concepts.png';
 // import componentsImg from './assets/components.png';
+import { useState } from 'react'; // react hook
+
 import { CORE_CONCEPTS } from './data.js';
 
 import Header from './components/Header/Header.jsx';
@@ -7,11 +9,11 @@ import CoreConcept from './components/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
 
 function App() {
-  let tabContent = 'Please click a button';
+  const [selectedTopic, setSelectedTopic] = useState('Please click a button');
 
   function handleSelect(selectedButton) {
-    tabContent = selectedButton;
-    console.log(tabContent);
+    setSelectedTopic(selectedButton);
+    console.log(selectedTopic);
   }
 
   return (
@@ -46,7 +48,7 @@ function App() {
             <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
             <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
           </menu>
-          {tabContent}
+          {selectedTopic}
         </section>
       </main>
     </div>
