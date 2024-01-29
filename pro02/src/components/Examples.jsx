@@ -31,6 +31,8 @@ export default function Examples() {
   return (
     <Section title="Examples" id="examples">
       <Tabs
+        // buttonsContainer={section} // in case of custom component
+        // ButtonsContainer="menu" // will use default value
         buttons={
           <>
             <TabButton
