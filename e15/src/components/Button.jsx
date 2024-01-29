@@ -20,7 +20,7 @@ export default function Button({ children, mode='filled', Icon, ...props }) {
 
 	<button className={cssClasses} {...props}>
 		{Icon && (
-			<span className="button-icon"> <Icon></Icon></span>
+			<span className="button-icon"><Icon></Icon></span>
 		)}
 		<span>{children}</span>
 	</button>
