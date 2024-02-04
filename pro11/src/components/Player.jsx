@@ -14,11 +14,12 @@ export default function Player() {
   function handleClick() {
     // setSubmitted(true);
     setEnteredPlayerName(playerName.current.value);
+    console.log(playerName);
   }
 
   return (
     <section id="player">
-      <h2>Welcome {enteredPlayerName ?? 'unknown entity'}</h2> 
+      <h2>Welcome {enteredPlayerName ?? 'unknown entity'}</h2>
       <p>
         <input
           ref={playerName}
