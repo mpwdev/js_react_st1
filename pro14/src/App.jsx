@@ -8,21 +8,17 @@ import logoImg from './assets/logo.png';
 
 import { sortPlacesByDistance } from './loc.js';
 
+// side effect - but! we do not need this code in the app
+const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+const storedPlaces = storedIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id)
+);
+
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
-  const [pickedPlaces, setPickedPlaces] = useState([]);
-
-  // example of redundad usage of useEffect
-  useEffect(() => {
-    const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
-    const storedPlaces = storedIds.map((id) =>
-      AVAILABLE_PLACES.find((place) => place.id === id)
-    );
-
-    setPickedPlaces(storedPlaces);
-  }, []);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
     // side effect code
