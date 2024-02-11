@@ -6,13 +6,15 @@ export default function QuestionTimer({ timeout, onTimeout, mode }) {
   useEffect(() => {
     console.log('setting timeout');
 
-    const timer = setTimeout(() => {
-      onTimeout();
-    }, timeout);
+    // const timer = setTimeout(() => {
+    //   onTimeout();
+    // }, timeout);
 
-		return () => {
-			clearTimeout(timer);
-		};
+    const timer = setTimeout(onTimeout, timeout);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [timeout, onTimeout]);
 
   useEffect(() => {
@@ -30,6 +32,11 @@ export default function QuestionTimer({ timeout, onTimeout, mode }) {
   }, []);
 
   return (
-    <progress id="question-time" max={timeout} value={remainingTime} className={mode}></progress>
+    <progress
+      id="question-time"
+      max={timeout}
+      value={remainingTime}
+      className={mode}
+    ></progress>
   );
 }
