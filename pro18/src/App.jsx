@@ -5,11 +5,14 @@ import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import AvailablePlaces from './components/AvailablePlaces.jsx';
+import { updateUserPlaces } from './http.js';
+import Error from './components/Error.jsx';
 
 function App() {
   const selectedPlace = useRef();
 
   const [userPlaces, setUserPlaces] = useState([]);
+  const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -22,8 +25,12 @@ function App() {
     setModalIsOpen(false);
   }
 
-  function handleSelectPlace(selectedPlace) {
+  async function handleSelectPlace(selectedPlace) {
+    // await updateUserPlaces([selectedPlace, ...userPlaces]);
+    // if use above need something like spinner
+
     setUserPlaces((prevPickedPlaces) => {
+      // optimistic updating
       if (!prevPickedPlaces) {
         prevPickedPlaces = [];
       }
@@ -32,6 +39,15 @@ function App() {
       }
       return [selectedPlace, ...prevPickedPlaces];
     });
+
+    try {
+      await updateUserPlaces([selectedPlace, ...userPlaces]);
+    } catch (error) {
+      setUserPlaces(userPlaces); // so just rolling back to previous state
+      setErrorUpdatingPlaces({
+        message: error.message || 'Failed to update selected places.',
+      });
+    }
   }
 
   const handleRemovePlace = useCallback(async function handleRemovePlace() {
@@ -42,8 +58,22 @@ function App() {
     setModalIsOpen(false);
   }, []);
 
+  function handleError() {
+    setErrorUpdatingPlaces(null);
+  }
+
   return (
     <>
+      <Modal open={errorUpdatingPlaces} onClose={handleError}>
+        {errorUpdatingPlaces && (
+          <Error
+            title="An error occured"
+            message={errorUpdatingPlaces.message}
+            onConfirm={handleError}
+          ></Error>
+        )}
+      </Modal>
+
       <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
         <DeleteConfirmation
           onCancel={handleStopRemovePlace}
