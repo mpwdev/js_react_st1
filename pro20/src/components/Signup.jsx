@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function Signup() {
+  const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -7,6 +11,12 @@ export default function Signup() {
     const acquisitionChannel = fd.getAll('acquisition'); // will be array of checkbox group
     const data = Object.fromEntries(fd.entries());
     data.acquisition = acquisitionChannel;
+
+    if (data.password !== data['confirm-password']) {
+      setPasswordsAreNotEqual(true);
+      return;
+    }
+
     console.log(data);
 
     // event.target.reset(); // variant to reset whole form
@@ -25,7 +35,13 @@ export default function Signup() {
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" required minLength={6} />
+          <input
+            id="password"
+            type="password"
+            name="password"
+            required
+            minLength={6}
+          />
         </div>
 
         <div className="control">
@@ -34,8 +50,11 @@ export default function Signup() {
             id="confirm-password"
             type="password"
             name="confirm-password"
-						required
+            required
           />
+          <div className="control-error">
+            {passwordsAreNotEqual && <p>Passwords must match.</p>}
+          </div>
         </div>
       </div>
 
@@ -94,8 +113,13 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="terms-and-conditions">
-          <input type="checkbox" id="terms-and-conditions" name="terms" required />I
-          agree to the terms and conditions
+          <input
+            type="checkbox"
+            id="terms-and-conditions"
+            name="terms"
+            required
+          />
+          I agree to the terms and conditions
         </label>
       </div>
 
